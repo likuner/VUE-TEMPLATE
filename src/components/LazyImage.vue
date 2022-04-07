@@ -11,7 +11,7 @@ export default {
   },
   data() {
     return {
-      imgSrc: require('@/assets/images/lu.png')
+      imgSrc: require('@/assets/lu.png')
     }
   }
 }
