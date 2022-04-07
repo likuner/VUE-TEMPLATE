@@ -1,16 +1,20 @@
 <template>
-  <LazyImg />
+<LazyImage />
 </template>
 
 <script>
-import LazyImg from '@/components/LazyImg'
+import LazyImage from '@/components/LazyImage'
 export default {
   name: 'Home',
   components: {
-    LazyImg
+    LazyImage
   },
   setup() {
     
   },
 }
 </script>
+
+<style lang="scss" scoped>
+
+</style>

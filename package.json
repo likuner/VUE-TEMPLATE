@@ -4,10 +4,10 @@
   "description": "",
   "scripts": {
     "start": "npm run serve",
-    "serve": "npx webpack serve",
-    "build": "npx webpack",
-    "watch": "npx webpack --watch",
-    "build:dev": "npx webpack --mode development"
+    "serve": "webpack serve",
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "build:dev": "webpack --mode development"
   },
   "keywords": [],
   "author": "likun(273676636@qq.com)",
@@ -15,7 +15,8 @@
   "dependencies": {
     "@likun./lazy-img": "^1.0.17",
     "vue": "^3.2.31",
-    "vue-router": "^4.0.14"
+    "vue-router": "^4.0.14",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^10.2.4",
@@ -23,6 +24,7 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.6.0",
+    "mockjs": "^1.1.0",
     "node-sass": "^7.0.1",
     "sass-loader": "^12.6.0",
     "url-loader": "^4.1.1",

@@ -9,10 +9,11 @@ const config = {
   output: {
     clean: true,
     filename: 'js/[name]-[contenthash].js',
+    chunkFilename: 'js/chunk-[contenthash].js',
     path: path.resolve(__dirname, 'dist')
   },
   mode: 'production',
-  // devtool: 'inline-source-map',
+  devtool: 'inline-source-map',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src')
@@ -74,11 +75,10 @@ const config = {
     })
   ],
   performance: {
-    maxEntrypointSize: 500000,
-    maxAssetSize: 500000
+    hints: false
   },
   watchOptions: {
-    aggregateTimeout: 1000,
+    aggregateTimeout: 200,
     ignored: ['**/node_modules']
   },
   devServer: {
