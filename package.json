@@ -12,6 +12,10 @@
   "keywords": [],
   "author": "likun(273676636@qq.com)",
   "license": "ISC",
+  "sideEffects": [
+    "*.css",
+    "*.scss"
+  ],
   "dependencies": {
     "@likun./lazy-img": "^1.0.17",
     "vue": "^3.2.31",

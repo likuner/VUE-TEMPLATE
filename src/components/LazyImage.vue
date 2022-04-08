@@ -5,13 +5,15 @@
 </template>
 
 <script>
+import lu from '@/assets/lu.png'
+
 export default {
   name: 'LazyImage',
   setup() {
   },
   data() {
     return {
-      imgSrc: require('@/assets/lu.png')
+      imgSrc: lu
     }
   }
 }

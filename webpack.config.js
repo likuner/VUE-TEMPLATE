@@ -44,7 +44,7 @@ const config = {
               name: '[name]-[contenthash].[ext]',
               outputPath: 'assets',
               limit: 8192,
-              esModule: false
+              esModule: true
             }
           }
         ]
@@ -74,6 +74,9 @@ const config = {
       ]
     })
   ],
+  optimization: {
+    usedExports: true
+  },
   performance: {
     hints: false
   },
@@ -89,10 +92,7 @@ const config = {
       //   target: 'https://localhost:8080'
       // }
     },
-    static: {
-      directory: path.resolve(__dirname, 'src'),
-      watch: true
-    },
+    watchFiles: ['src'],
     client: {
       overlay: true
     }
