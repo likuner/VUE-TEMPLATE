@@ -7,7 +7,7 @@
     "serve": "webpack serve",
     "build": "webpack",
     "watch": "webpack --watch",
-    "build:dev": "webpack --mode development"
+    "dev": "webpack --mode development"
   },
   "keywords": [],
   "author": "likun(273676636@qq.com)",
@@ -23,6 +23,11 @@
     "vuex": "^4.0.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/runtime": "^7.17.9",
+    "babel-loader": "^8.2.4",
     "copy-webpack-plugin": "^10.2.4",
     "css-loader": "^6.7.1",
     "file-loader": "^6.2.0",
