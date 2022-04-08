@@ -17,7 +17,7 @@
     "*.scss"
   ],
   "dependencies": {
-    "@likun./lazy-img": "^1.0.17",
+    "@likun./lazy-img": "^1.0.18",
     "vue": "^3.2.31",
     "vue-router": "^4.0.14",
     "vuex": "^4.0.2"
