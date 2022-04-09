@@ -16,7 +16,8 @@ const config = {
     clean: true,
     filename: 'js/[name]-[contenthash].js',
     chunkFilename: 'js/chunk-[contenthash].js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: ''
   },
   mode: isProd ? 'production' : 'development',
   devtool: 'inline-source-map',
