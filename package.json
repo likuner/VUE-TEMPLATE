@@ -4,13 +4,17 @@
   "description": "",
   "scripts": {
     "start": "npm run serve",
-    "serve": "webpack serve",
-    "build": "webpack",
-    "watch": "webpack --watch",
-    "dev": "webpack --mode development"
+    "serve": "cross-env NODE_ENV=development webpack serve",
+    "build": "cross-env NODE_ENV=production webpack --config ./webpack.config.js --progress",
+    "dev": "cross-env NODE_ENV=development webpack --watch --progress"
   },
-  "keywords": [],
-  "author": "likun(273676636@qq.com)",
+  "keywords": [
+    "vue",
+    "vue3",
+    "template",
+    "webpack5"
+  ],
+  "author": "likun",
   "license": "ISC",
   "sideEffects": [
     "*.css",
@@ -29,12 +33,16 @@
     "@babel/runtime": "^7.17.9",
     "babel-loader": "^8.2.4",
     "copy-webpack-plugin": "^10.2.4",
+    "cross-env": "^7.0.3",
     "css-loader": "^6.7.1",
+    "dotenv": "^16.0.0",
+    "dotenv-webpack": "^7.1.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.6.0",
     "mockjs": "^1.1.0",
     "node-sass": "^7.0.1",
+    "rimraf": "^3.0.2",
     "sass-loader": "^12.6.0",
     "url-loader": "^4.1.1",
     "vue-loader": "^17.0.0",

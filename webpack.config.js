@@ -1,8 +1,14 @@
 const path = require('path')
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
+const Dotenv = require('dotenv-webpack')
+const dotenv = require('dotenv')
+
+const nodeEnv = process.env.NODE_ENV
+const isProd =  nodeEnv === 'production'
 
 const config = {
   entry: './src/main.js',
@@ -12,7 +18,7 @@ const config = {
     chunkFilename: 'js/chunk-[contenthash].js',
     path: path.resolve(__dirname, 'dist')
   },
-  mode: 'production',
+  mode: isProd ? 'production' : 'development',
   devtool: 'inline-source-map',
   resolve: {
     alias: {
@@ -37,7 +43,14 @@ const config = {
       },
       {
         test: /\.vue$/,
-        use: 'vue-loader'
+        use: {
+          loader: 'vue-loader',
+          // options: {
+          //   compilerOptions: {
+          //     isCustomElement: tag => tag.includes('-')
+          //   }
+          // }
+        }
       },
       {
         test: /\.s?css$/,
@@ -49,7 +62,7 @@ const config = {
         ]
       },
       {
-        test: /\.(png|jpe?g|svg|webp|mp3|mp4)$/,
+        test: /\.(png|jpe?g|gif|svg|webp|mp3|mp4)$/,
         use: [
           {
             loader: 'url-loader',
@@ -66,8 +79,8 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.html',
       filename: 'index.html',
+      template: './public/index.html',
       inject: 'body',
       minify: false
     }),
@@ -85,6 +98,16 @@ const config = {
           }
         }
       ]
+    }),
+    // new Dotenv({
+    //   path: './.env'
+    // }),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify({
+        ...dotenv.config().parsed,
+        ...dotenv.config({ path: './.env.' + nodeEnv, override: true }).parsed,
+        NODE_ENV: nodeEnv
+      })
     })
   ],
   optimization: {

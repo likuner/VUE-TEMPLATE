@@ -6,6 +6,8 @@ import './style'
 import '@likun./lazy-img'
 // import './mock'
 
+console.log('process.env', process.env)
+
 createApp(App)
   .use(router)
   .use(store)
