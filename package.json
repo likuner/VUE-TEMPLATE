@@ -1,10 +1,10 @@
 {
   "name": "vue-template",
   "version": "1.0.0",
-  "description": "",
+  "description": "a template project based on vue3 & webpack5",
   "scripts": {
     "start": "npm run serve",
-    "serve": "cross-env NODE_ENV=development webpack serve",
+    "serve": "cross-env NODE_ENV=development BASE_PATH=/ webpack serve",
     "build": "cross-env NODE_ENV=production webpack --config ./webpack.config.js --progress",
     "dev": "cross-env NODE_ENV=development webpack --watch --progress"
   },
@@ -36,6 +36,7 @@
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.1",
     "dotenv": "^16.0.0",
+    "dotenv-expand": "^8.0.3",
     "dotenv-webpack": "^7.1.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",

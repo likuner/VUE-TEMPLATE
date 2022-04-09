@@ -1,14 +1,19 @@
 const path = require('path')
+const dotenv = require('dotenv')
+const dotenvExpand = require('dotenv-expand')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
-const Dotenv = require('dotenv-webpack')
-const dotenv = require('dotenv')
 
 const NODE_ENV = process.env.NODE_ENV
 const isProd =  NODE_ENV === 'production'
+
+// write global variables to process.env
+// priority: process.env > .env.** > .env
+dotenvExpand.expand(dotenv.config({ path: './.env.' + NODE_ENV }))
+dotenvExpand.expand(dotenv.config())
 
 const config = {
   entry: './src/main.js',
@@ -100,16 +105,9 @@ const config = {
         }
       ]
     }),
-    // new Dotenv({
-    //   path: './.env'
-    // }),
     new webpack.DefinePlugin({
-      'process.env': JSON.stringify({
-        ...dotenv.config().parsed,
-        ...dotenv.config({ path: './.env.' + NODE_ENV, override: true }).parsed,
-        NODE_ENV
-      })
-    })
+      'process.env': JSON.stringify(process.env)
+    }),
   ],
   optimization: {
     usedExports: true,
