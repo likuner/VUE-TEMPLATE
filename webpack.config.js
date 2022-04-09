@@ -7,8 +7,8 @@ const CopyPlugin = require('copy-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
 const dotenv = require('dotenv')
 
-const nodeEnv = process.env.NODE_ENV
-const isProd =  nodeEnv === 'production'
+const NODE_ENV = process.env.NODE_ENV
+const isProd =  NODE_ENV === 'production'
 
 const config = {
   entry: './src/main.js',
@@ -106,13 +106,16 @@ const config = {
     new webpack.DefinePlugin({
       'process.env': JSON.stringify({
         ...dotenv.config().parsed,
-        ...dotenv.config({ path: './.env.' + nodeEnv, override: true }).parsed,
-        NODE_ENV: nodeEnv
+        ...dotenv.config({ path: './.env.' + NODE_ENV, override: true }).parsed,
+        NODE_ENV
       })
     })
   ],
   optimization: {
-    usedExports: true
+    usedExports: true,
+    splitChunks: {
+      chunks: 'all'
+    }
   },
   performance: {
     hints: false
