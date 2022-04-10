@@ -19,8 +19,8 @@ const config = {
   entry: './src/main.js',
   output: {
     clean: true,
-    filename: 'js/[name]-[contenthash].js',
-    chunkFilename: 'js/chunk-[contenthash].js',
+    filename: 'js/[name].[contenthash].js',
+    // chunkFilename: 'js/chunk.[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: ''
   },
