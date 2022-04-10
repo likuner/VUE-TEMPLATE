@@ -64,6 +64,16 @@ const config = {
           MiniCssExtractPlugin.loader,
           // 'vue-style-loader',
           'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  'autoprefixer'
+                ]
+              }
+            }
+          },
           'sass-loader'
         ]
       },
@@ -73,7 +83,7 @@ const config = {
           {
             loader: 'url-loader',
             options: {
-              name: '[name]-[contenthash].[ext]',
+              name: '[name].[contenthash].[ext]',
               outputPath: 'assets',
               limit: 8192,
               esModule: true
@@ -92,8 +102,7 @@ const config = {
     }),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'css/[name]-[contenthash].css'
-      // chunkFilename: 'css/[contenthash].css'
+      filename: 'css/[name].[contenthash].css'
     }),
     new CopyPlugin({
       patterns: [
