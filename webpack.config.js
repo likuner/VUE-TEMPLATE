@@ -6,13 +6,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
+const EslintPlugin = require('eslint-webpack-plugin')
 
-const NODE_ENV = process.env.NODE_ENV
-const isProd =  NODE_ENV === 'production'
+const { NODE_ENV } = process.env
+const isProd = NODE_ENV === 'production'
 
 // write global variables to process.env
 // priority: process.env > .env.** > .env
-dotenvExpand.expand(dotenv.config({ path: './.env.' + NODE_ENV }))
+dotenvExpand.expand(dotenv.config({ path: `./.env.${NODE_ENV}` }))
 dotenvExpand.expand(dotenv.config())
 
 const config = {
@@ -22,10 +23,10 @@ const config = {
     filename: 'js/[name].[contenthash].js',
     // chunkFilename: 'js/chunk.[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: ''
+    publicPath: '/'
   },
   mode: isProd ? 'production' : 'development',
-  devtool: 'inline-source-map',
+  devtool: isProd ? false : 'source-map',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src')
@@ -108,15 +109,14 @@ const config = {
       patterns: [
         {
           from: path.resolve(__dirname, 'public'),
-          filter: (resourcePath) => {
-            return !resourcePath.endsWith('/index.html')
-          }
+          filter: (resourcePath) => !resourcePath.endsWith('/index.html')
         }
       ]
     }),
     new webpack.DefinePlugin({
       'process.env': JSON.stringify(process.env)
     }),
+    new EslintPlugin()
   ],
   optimization: {
     usedExports: true,
@@ -139,9 +139,10 @@ const config = {
       //   target: 'https://localhost:8080'
       // }
     },
+    liveReload: true,
     watchFiles: ['src'],
     client: {
-      overlay: true
+      overlay: false
     }
   }
 }

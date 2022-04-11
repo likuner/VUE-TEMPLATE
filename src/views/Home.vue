@@ -4,13 +4,14 @@
 
 <script>
 import LazyImage from '@/components/LazyImage'
+
 export default {
   name: 'Home',
   components: {
     LazyImage
   },
   setup() {
-    
+
   },
 }
 </script>
