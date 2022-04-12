@@ -101,7 +101,10 @@ const config = {
       filename: 'index.html',
       template: './public/index.html',
       inject: 'body',
-      minify: false
+      minify: false,
+      title: 'VUE-TEMPLATE',
+      resource: ['/vendors/lazy-img.js'],
+      buildTime: new Date().toLocaleString()
     }),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({

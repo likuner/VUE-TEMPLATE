@@ -2,7 +2,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './style'
-import '@likun./lazy-img'
+// import '@likun./lazy-img'
 // import './mock'
 
 console.log('process.env', process.env)
