@@ -5,6 +5,8 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const EslintPlugin = require('eslint-webpack-plugin')
 
@@ -50,21 +52,21 @@ const config = {
       },
       {
         test: /\.vue$/,
-        use: {
-          loader: 'vue-loader',
-          // options: {
-          //   compilerOptions: {
-          //     isCustomElement: tag => tag.includes('-')
-          //   }
-          // }
-        }
+        use: 'vue-loader'
       },
       {
         test: /\.s?css$/,
+        sideEffects: true,
         use: [
           MiniCssExtractPlugin.loader,
           // 'vue-style-loader',
-          'css-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 2,
+              esModule: false
+            }
+          },
           {
             loader: 'postcss-loader',
             options: {
@@ -113,6 +115,9 @@ const config = {
         }
       ]
     }),
+    new webpack.ProvidePlugin({
+      Vue: 'vue'
+    }),
     new webpack.DefinePlugin({
       'process.env': JSON.stringify(process.env)
     }),
@@ -122,7 +127,11 @@ const config = {
     usedExports: true,
     splitChunks: {
       chunks: 'all'
-    }
+    },
+    minimizer: [
+      new TerserPlugin(),
+      new CssMinimizerPlugin()
+    ]
   },
   performance: {
     hints: false

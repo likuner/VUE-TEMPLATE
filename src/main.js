@@ -1,4 +1,3 @@
-import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -8,7 +7,8 @@ import '@likun./lazy-img'
 
 console.log('process.env', process.env)
 
-createApp(App)
+// Vue has been loaded by ProvidePlugin of webpack
+Vue.createApp(App)
   .use(router)
   .use(store)
   .mount('#app')

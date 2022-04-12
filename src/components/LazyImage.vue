@@ -1,7 +1,5 @@
 <template>
-<div class="lazy-demo">
-  <lazy-img :src="imgSrc" width="500" />
-</div>
+  <lazy-img class="lazy-img" :src="imgSrc" width="500" />
 </template>
 
 <script>
@@ -20,9 +18,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.lazy-demo{
-  lazy-img{
-    margin: 0 0 0 0;
-  }
+.lazy-img{
+  margin: 0 0 0 0;
 }
 </style>
