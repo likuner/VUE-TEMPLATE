@@ -9,6 +9,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const EslintPlugin = require('eslint-webpack-plugin')
+const WorkboxPlugin = require('workbox-webpack-plugin')
 
 const { NODE_ENV } = process.env
 const isProd = NODE_ENV === 'production'
@@ -25,7 +26,7 @@ const config = {
     filename: 'js/[name].[contenthash].js',
     // chunkFilename: 'js/chunk.[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/'
+    publicPath: ''
   },
   mode: isProd ? 'production' : 'development',
   devtool: isProd ? false : 'source-map',
@@ -52,7 +53,14 @@ const config = {
       },
       {
         test: /\.vue$/,
-        use: 'vue-loader'
+        use: {
+          loader: 'vue-loader',
+          options: {
+            compilerOptions: {
+              isCustomElement: (tag) => ['lazy-img'].includes(tag)
+            }
+          }
+        }
       },
       {
         test: /\.s?css$/,
@@ -103,7 +111,7 @@ const config = {
       inject: 'body',
       minify: false,
       title: 'VUE-TEMPLATE',
-      resource: ['/vendors/lazy-img.js'],
+      resource: ['vendors/lazy-img.js'],
       buildTime: new Date().toLocaleString()
     }),
     new VueLoaderPlugin(),
@@ -122,9 +130,15 @@ const config = {
       Vue: 'vue'
     }),
     new webpack.DefinePlugin({
-      'process.env': JSON.stringify(process.env)
+      'process.env': JSON.stringify(process.env),
+      __VUE_OPTIONS_API__: true,
+      __VUE_PROD_DEVTOOLS__: false
     }),
-    new EslintPlugin()
+    new EslintPlugin(),
+    new WorkboxPlugin.GenerateSW({
+      clientsClaim: true,
+      skipWaiting: true
+    })
   ],
   optimization: {
     usedExports: true,
@@ -155,6 +169,9 @@ const config = {
     watchFiles: ['src'],
     client: {
       overlay: false
+    },
+    devMiddleware: {
+      writeToDisk: true
     }
   }
 }
