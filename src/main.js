@@ -2,9 +2,10 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './style'
-import './registerServiceWorker'
 // import '@likun./lazy-img'
 // import './mock'
+
+require('./registerServiceWorker')
 
 console.log('process.env', process.env)
 

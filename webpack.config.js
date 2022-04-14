@@ -9,7 +9,6 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const EslintPlugin = require('eslint-webpack-plugin')
-const WorkboxPlugin = require('workbox-webpack-plugin')
 
 const { NODE_ENV } = process.env
 const isProd = NODE_ENV === 'production'
@@ -34,7 +33,7 @@ const config = {
     alias: {
       '@': path.resolve(__dirname, 'src')
     },
-    extensions: ['.js', '.vue', '.scss', '.css', '.json']
+    extensions: ['.js', '.vue', '.less', '.css', '.json']
   },
   module: {
     rules: [
@@ -63,7 +62,7 @@ const config = {
         }
       },
       {
-        test: /\.s?css$/,
+        test: /\.(le|c)ss$/,
         sideEffects: true,
         use: [
           MiniCssExtractPlugin.loader,
@@ -71,8 +70,7 @@ const config = {
           {
             loader: 'css-loader',
             options: {
-              importLoaders: 2,
-              esModule: false
+              importLoaders: 2
             }
           },
           {
@@ -85,7 +83,7 @@ const config = {
               }
             }
           },
-          'sass-loader'
+          'less-loader'
         ]
       },
       {
@@ -134,11 +132,7 @@ const config = {
       __VUE_OPTIONS_API__: true,
       __VUE_PROD_DEVTOOLS__: false
     }),
-    new EslintPlugin(),
-    new WorkboxPlugin.GenerateSW({
-      clientsClaim: true,
-      skipWaiting: true
-    })
+    new EslintPlugin()
   ],
   optimization: {
     usedExports: true,
@@ -169,9 +163,6 @@ const config = {
     watchFiles: ['src'],
     client: {
       overlay: false
-    },
-    devMiddleware: {
-      writeToDisk: true
     }
   }
 }

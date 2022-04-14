@@ -24,6 +24,7 @@
         "no-debugger": 0,
         "import/no-unresolved": 0,
         "import/extensions": 0,
-        "vue/multi-word-component-names": 0
+        "vue/multi-word-component-names": 0,
+        "import/no-extraneous-dependencies": 0
     }
 }
