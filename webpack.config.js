@@ -9,8 +9,9 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const EslintPlugin = require('eslint-webpack-plugin')
+const FileManagerPlugin = require('filemanager-webpack-plugin')
 
-const { NODE_ENV } = process.env
+const { NODE_ENV, BUILD_ZIP } = process.env
 const isProd = NODE_ENV === 'production'
 
 // write global variables to process.env
@@ -95,17 +96,6 @@ const config = {
             maxSize: 8192
           }
         }
-        /* use: [
-          {
-            loader: 'url-loader',
-            options: {
-              name: '[name].[contenthash].[ext]',
-              outputPath: 'assets',
-              limit: 8192,
-              esModule: true
-            }
-          }
-        ] */
       }
     ]
   },
@@ -116,7 +106,9 @@ const config = {
       inject: 'body',
       minify: false,
       title: 'VUE-TEMPLATE',
-      resource: ['vendors/lazy-img.js'],
+      externals: [
+        'vendors/lazy-img.js'
+      ],
       buildTime: new Date().toLocaleString()
     }),
     new VueLoaderPlugin(),
@@ -131,9 +123,9 @@ const config = {
         }
       ]
     }),
-    new webpack.ProvidePlugin({
-      Vue: 'vue'
-    }),
+    // new webpack.ProvidePlugin({
+    //   Vue: 'vue'
+    // }),
     new webpack.DefinePlugin({
       'process.env': JSON.stringify(process.env),
       __VUE_OPTIONS_API__: true,
@@ -141,6 +133,9 @@ const config = {
     }),
     new EslintPlugin()
   ],
+  // externals: {
+  //   vue: 'Vue',
+  // },
   optimization: {
     usedExports: true,
     splitChunks: {
@@ -172,6 +167,24 @@ const config = {
       overlay: false
     }
   }
+}
+
+if (BUILD_ZIP) {
+  config.plugins.push(
+    new FileManagerPlugin({
+      events: {
+        onEnd: {
+          archive: [
+            {
+              source: './dist',
+              destination: './dist.zip',
+              format: 'zip'
+            }
+          ]
+        }
+      }
+    })
+  )
 }
 
 module.exports = config

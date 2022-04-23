@@ -6,10 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="./favicon.ico">
   <title><%= htmlWebpackPlugin.options.title %></title>
+  <!-- <script src="https://unpkg.com/vue@3.2.31/dist/vue.global.prod.js"></script> -->
 </head>
 <body>
   <div id="app"></div>
-  <% htmlWebpackPlugin.options.resource && htmlWebpackPlugin.options.resource.forEach(item => { %>
+  <% htmlWebpackPlugin.options.externals && htmlWebpackPlugin.options.externals.forEach(item => { %>
   <script defer src="<%= item %>"></script>
   <% }) %>
   <script>

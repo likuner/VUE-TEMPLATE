@@ -1,3 +1,4 @@
+import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -9,8 +10,7 @@ require('./registerServiceWorker')
 
 console.log('process.env', process.env)
 
-// Vue will be loaded by ProvidePlugin of webpack
-Vue.createApp(App)
+createApp(App)
   .use(router)
   .use(store)
   .mount('#app')
