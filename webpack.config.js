@@ -25,7 +25,8 @@ const config = {
     filename: 'js/[name].[contenthash].js',
     // chunkFilename: 'js/chunk.[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: ''
+    publicPath: '',
+    assetModuleFilename: 'assets/[name].[contenthash][ext][query]'
   },
   mode: isProd ? 'production' : 'development',
   devtool: isProd ? false : 'source-map',
@@ -88,7 +89,13 @@ const config = {
       },
       {
         test: /\.(png|jpe?g|gif|svg|webp|mp3|mp4)$/,
-        use: [
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            maxSize: 8192
+          }
+        }
+        /* use: [
           {
             loader: 'url-loader',
             options: {
@@ -98,7 +105,7 @@ const config = {
               esModule: true
             }
           }
-        ]
+        ] */
       }
     ]
   },
