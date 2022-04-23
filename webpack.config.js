@@ -85,7 +85,16 @@ const config = {
               }
             }
           },
-          'less-loader'
+          {
+            loader: 'less-loader',
+            options: {
+              lessOptions: {
+                modifyVars: {
+                  hack: `true; @import "${path.resolve(__dirname, 'src/style/variable.less')}";`,
+                }
+              }
+            }
+          }
         ]
       },
       {
@@ -123,9 +132,9 @@ const config = {
         }
       ]
     }),
-    // new webpack.ProvidePlugin({
-    //   Vue: 'vue'
-    // }),
+    new webpack.ProvidePlugin({
+      consola: 'consola'
+    }),
     new webpack.DefinePlugin({
       'process.env': JSON.stringify(process.env),
       __VUE_OPTIONS_API__: true,
