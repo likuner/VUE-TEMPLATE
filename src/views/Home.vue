@@ -20,17 +20,19 @@ export default {
     }
   },
   setup() {
-    console.log('setup->', getCurrentInstance().appContext.config.globalProperties.$globalProperty)
+    consola.info('setup->', getCurrentInstance().appContext.config.globalProperties.$globalProperty)
     onMounted(() => {
-      console.log('onMounted->', getCurrentInstance().appContext.config.globalProperties.$globalProperty)
+      consola.info('onMounted->', getCurrentInstance().appContext.config.globalProperties.$globalProperty)
     })
   },
   created() {
-    console.log('created->', this.$globalProperty)
+    consola.success('created->', this.$globalProperty)
   }
 }
 </script>
 
 <style lang="less" scoped>
-
+  h1{
+    background-color: @bgColor;
+  }
 </style>
