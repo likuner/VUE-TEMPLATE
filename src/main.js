@@ -6,11 +6,14 @@ import './style'
 // import '@likun./lazy-img'
 // import './mock'
 
-require('./registerServiceWorker')
+// require('./registerServiceWorker')
 
-console.log('process.env', process.env)
+// console.log('process.env', process.env)
 
 createApp(App)
   .use(router)
   .use(store)
+  .use((app) => {
+    app.config.globalProperties.$globalProperty = 'Hi, World!'
+  })
   .mount('#app')
