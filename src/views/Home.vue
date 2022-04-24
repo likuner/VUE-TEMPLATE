@@ -21,21 +21,19 @@ export default {
   },
   setup() {
     const handleClick = () => {
-      // getComputedStyle(document.documentElement)
-      //   .setProperty(
-      //     '--primary-color',
-      //     ['red', 'green', 'blue'][Math.floor(Math.random() * 3)]
-      //   )
       document.documentElement.style.setProperty(
         '--primary-color',
         ['red', 'green', 'blue'][Math.floor(Math.random() * 3)]
       )
       // console.log('styleSheets', document.styleSheets)
     }
+
     consola.info('setup:', getCurrentInstance().appContext.config.globalProperties.$globalProperty)
+
     onMounted(() => {
       consola.info('onMounted:', getCurrentInstance().appContext.config.globalProperties.$globalProperty)
     })
+
     return {
       handleClick
     }
@@ -54,5 +52,11 @@ export default {
   h1{
     background-color: @bg-color;
     color: var(--primary-color);
+    &::before {
+      content: '\270C';
+    }
+    &::after {
+      content: '\2764';
+    }
   }
 </style>
