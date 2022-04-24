@@ -2,7 +2,7 @@
 <h1>
 {{msg}}
 </h1>
-<LazyImage />
+<LazyImage @click="handleClick"/>
 </template>
 
 <script>
@@ -20,19 +20,43 @@ export default {
     }
   },
   setup() {
-    consola.info('setup->', getCurrentInstance().appContext.config.globalProperties.$globalProperty)
+    const handleClick = () => {
+      document.documentElement.style.setProperty(
+        '--primary-color',
+        ['red', 'green', 'blue'][Math.floor(Math.random() * 3)]
+      )
+      // console.log('styleSheets', document.styleSheets)
+    }
+
+    consola.info('setup:', getCurrentInstance().appContext.config.globalProperties.$globalProperty)
+
     onMounted(() => {
-      consola.info('onMounted->', getCurrentInstance().appContext.config.globalProperties.$globalProperty)
+      consola.info('onMounted:', getCurrentInstance().appContext.config.globalProperties.$globalProperty)
     })
+
+    return {
+      handleClick
+    }
   },
   created() {
-    consola.success('created->', this.$globalProperty)
+    consola.info('created:', this.$globalProperty)
+  },
+  mounted() {
+    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color')
+    consola.info('mounted: --primary-color', primaryColor)
   }
 }
 </script>
 
 <style lang="less" scoped>
   h1{
-    background-color: @bgColor;
+    background-color: @bg-color;
+    color: var(--primary-color);
+    &::before {
+      content: '\270C';
+    }
+    &::after {
+      content: '\2764';
+    }
   }
 </style>
