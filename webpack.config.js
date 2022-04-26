@@ -37,6 +37,14 @@ const config = {
     },
     extensions: ['.js', '.vue', '.less', '.css', '.json']
   },
+  /* externals: {
+    vue: {
+      root: 'Vue',
+      commonjs: 'vue',
+      commonjs2: 'vue',
+      amd: 'vue'
+    }
+  }, */
   module: {
     rules: [
       {
@@ -64,7 +72,7 @@ const config = {
         }
       },
       {
-        test: /\.(le|c)ss$/,
+        test: /\.less$/,
         sideEffects: true,
         use: [
           MiniCssExtractPlugin.loader,
@@ -92,6 +100,29 @@ const config = {
                 modifyVars: {
                   hack: `true; @import "${path.resolve(__dirname, 'src/style/variable.less')}";`,
                 }
+              }
+            }
+          }
+        ]
+      },
+      {
+        test: /\.css$/,
+        sideEffects: true,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  'autoprefixer'
+                ]
               }
             }
           }
@@ -142,9 +173,6 @@ const config = {
     }),
     new EslintPlugin()
   ],
-  // externals: {
-  //   vue: 'Vue',
-  // },
   optimization: {
     usedExports: true,
     splitChunks: {
@@ -155,6 +183,9 @@ const config = {
       new CssMinimizerPlugin()
     ]
   },
+  experiments: {
+    topLevelAwait: true
+  },
   performance: {
     hints: false
   },
@@ -163,7 +194,7 @@ const config = {
     ignored: ['**/node_modules']
   },
   devServer: {
-    open: false,
+    open: true,
     port: 8080,
     proxy: {
       // '/api': {
