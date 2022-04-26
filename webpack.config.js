@@ -183,6 +183,9 @@ const config = {
       new CssMinimizerPlugin()
     ]
   },
+  experiments: {
+    topLevelAwait: true
+  },
   performance: {
     hints: false
   },
