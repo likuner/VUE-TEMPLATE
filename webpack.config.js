@@ -10,8 +10,9 @@ const TerserPlugin = require('terser-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const EslintPlugin = require('eslint-webpack-plugin')
 const FileManagerPlugin = require('filemanager-webpack-plugin')
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
-const { NODE_ENV, BUILD_ZIP } = process.env
+const { NODE_ENV, CHECK_MODE, BUILD_ZIP } = process.env
 const isProd = NODE_ENV === 'production'
 
 // write global variables to process.env
@@ -207,6 +208,10 @@ const config = {
       overlay: false
     }
   }
+}
+
+if (CHECK_MODE) {
+  config.plugins.push(new BundleAnalyzerPlugin())
 }
 
 if (BUILD_ZIP) {
