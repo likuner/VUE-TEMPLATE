@@ -1,5 +1,5 @@
 <template>
-<div class="about"></div>
+<Button>test-import-by-need</Button>
 </template>
 
 <script>

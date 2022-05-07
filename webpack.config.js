@@ -56,7 +56,12 @@ const config = {
           options: {
             presets: ['@babel/preset-env'],
             plugins: [
-              ['@babel/plugin-transform-runtime']
+              '@babel/plugin-transform-runtime',
+              [
+                'import',
+                { libraryName: 'view-design', libraryDirectory: 'src/components' },
+                'view-design'
+              ]
             ]
           }
         }
