@@ -59,8 +59,8 @@ const config = {
               '@babel/plugin-transform-runtime',
               [
                 'import',
-                { libraryName: 'view-design', libraryDirectory: 'src/components' },
-                'view-design'
+                { libraryName: 'view-ui-plus', libraryDirectory: 'src/components' },
+                'view-ui-plus'
               ]
             ]
           }

@@ -1,10 +1,10 @@
 import { createApp } from 'vue'
-import { Button } from 'view-design'
+import { Button } from 'view-ui-plus'
 import App from './App.vue'
 import router from './router'
 import store from './store'
 import './style'
-import 'view-design/dist/styles/viewuiplus.css'
+import 'view-ui-plus/dist/styles/viewuiplus.css'
 
 const app = createApp(App)
 
